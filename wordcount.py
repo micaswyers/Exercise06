@@ -18,9 +18,10 @@ for line in filename:
     words = line.split(" ")
     
     for word in words:
-        number_of_times = wordcount.get(word, 0)
+        lower_word = word.lower().rstrip('\n.,?')
+        number_of_times = wordcount.get(lower_word, 0)
         number_of_times += 1
-        wordcount[word] = number_of_times      
+        wordcount[lower_word] = number_of_times      
 
 for key, value in wordcount.iteritems():
     print key, value
