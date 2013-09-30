@@ -53,21 +53,23 @@ print "Keys sorted by frequency alphabetically:"
 
 
 def print_frequency_alphabetically(dictionary):
-    values = dictionary.values()
     super_sorted_list = {}
 
-    for value in values:
-        super_sorted_list[value] = []
-
-
-
     for key in dictionary:
-        super_sorted_list[dictionary[key]].append(key)
+        new_key = dictionary.get(key)
+
+        if super_sorted_list.get(new_key):
+            super_sorted_list[new_key].append(key)
+        else:
+            super_sorted_list[new_key] = []
+            super_sorted_list[new_key].append(key)
+ 
 
     for each in super_sorted_list:
         super_sorted_list[each] = sorted(super_sorted_list[each])
 
     print_alphabetically(super_sorted_list)
+
 
 
 print_frequency_alphabetically(wordcount)
