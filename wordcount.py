@@ -5,21 +5,10 @@ script, filename = argv
 
 filename = open(filename)
 
-wordcount = {}
-
-for line in filename:
-    words = line.split(" ")
-    
-    for word in words:
-        lower_word = word.lower().strip('\n.,?"--;$(\'[_*\r')
-        number_of_times = wordcount.get(lower_word, 0)
-        number_of_times += 1
-        wordcount[lower_word] = number_of_times      
-
 
 
 def print_alphabetically(dictionary):
-
+    print "Keys sorted alphabetically:"
     keys = dictionary.keys()
 
     sorted_keys = sorted(keys)
@@ -27,12 +16,12 @@ def print_alphabetically(dictionary):
     for key in sorted_keys:
         print key, dictionary[key]
 
-print "Keys sorted alphabetically:"
-print_alphabetically(wordcount)
+
+
 
 
 def print_by_frequency(dictionary):
-
+    print "Keys sorted by frequency:"
     values = dictionary.values()
 
     sorted_values = sorted(values)
@@ -45,11 +34,10 @@ def print_by_frequency(dictionary):
             if value == i:
                 print key , value
 
-print "Keys sorted by frequency:"
-print_by_frequency(wordcount)
 
 
-print "Keys sorted by frequency alphabetically:"
+
+
 
 
 def print_frequency_alphabetically(dictionary):
@@ -68,8 +56,31 @@ def print_frequency_alphabetically(dictionary):
     for each in super_sorted_list:
         super_sorted_list[each] = sorted(super_sorted_list[each])
 
-    print_alphabetically(super_sorted_list)
+    print "Keys sorted by frequency alphabetically:"
+    
+    keys = super_sorted_list.keys()
+
+    sorted_keys = sorted(keys)
+
+    for key in sorted_keys:
+        for item in super_sorted_list[key]:
+            print item, key
 
 
 
+
+wordcount = {}
+
+
+for line in filename:
+    words = line.split(" ")
+    
+    for word in words:
+        lower_word = word.lower().strip('\n.,?"--;$(\'[_*\r')
+        number_of_times = wordcount.get(lower_word, 0)
+        number_of_times += 1
+        wordcount[lower_word] = number_of_times      
+
+print_alphabetically(wordcount)
+print_by_frequency(wordcount)
 print_frequency_alphabetically(wordcount)
