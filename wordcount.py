@@ -1,86 +1,43 @@
+import sys
 
-from sys import argv
+def normalize(text):
+    text = text.replace("--", " ")
+    word_list = text.lower().split()   #lowers, splits and puts words into a list
+    
+    clean_list=[]
+    for word in word_list:
+        word = word.strip("?.,_;\":!'-")
+        clean_list.append(word)
 
-script, filename = argv
-
-filename = open(filename)
-
-
-
-def print_alphabetically(dictionary):
-    print "Keys sorted alphabetically:"
-    keys = dictionary.keys()
-
-    sorted_keys = sorted(keys)
-
-    for key in sorted_keys:
-        print key, dictionary[key]
-
-
-
-
+    return clean_list
 
 def print_by_frequency(dictionary):
-    print "Keys sorted by frequency:"
-    values = dictionary.values()
-
-    sorted_values = sorted(values)
-
-    max_value = sorted_values[-1]
-
-
-    for i in range(1, max_value + 1):
+    max_frequency = max(dictionary.values())
+    
+    for i in range(1, max_frequency+1):
         for key, value in dictionary.iteritems():
-            if value == i:
+            if value == max_frequency-(i-1):
                 print key , value
 
+def main():
+    script, input_text = sys.argv
 
+    open_file = open(input_text)
+    input_text = open_file.read()
+    open_file.close()
 
-
-
-
-
-def print_frequency_alphabetically(dictionary):
-    super_sorted_list = {}
-
-    for key in dictionary:
-        new_key = dictionary.get(key)
-
-        if super_sorted_list.get(new_key):
-            super_sorted_list[new_key].append(key)
-        else:
-            super_sorted_list[new_key] = []
-            super_sorted_list[new_key].append(key)
- 
-
-    for each in super_sorted_list:
-        super_sorted_list[each] = sorted(super_sorted_list[each])
-
-    print "Keys sorted by frequency alphabetically:"
+    token_list = normalize(input_text)
     
-    keys = super_sorted_list.keys()
-
-    sorted_keys = sorted(keys)
-
-    for key in sorted_keys:
-        for item in super_sorted_list[key]:
-            print item, key
-
-
-
-
-wordcount = {}
-
-
-for line in filename:
-    words = line.split(" ")
+    wordcount = {}
     
-    for word in words:
-        lower_word = word.lower().strip('\n.,?"--;$(\'[_*\r')
-        number_of_times = wordcount.get(lower_word, 0)
-        number_of_times += 1
-        wordcount[lower_word] = number_of_times      
+    for token in token_list:
+        wordcount[token] = wordcount.get(token, 0) + 1
 
-print_alphabetically(wordcount)
-print_by_frequency(wordcount)
-print_frequency_alphabetically(wordcount)
+    print_by_frequency(wordcount)
+
+
+    
+    # for word in wordcount:
+    #     print word, wordcount[word]
+main()
+
