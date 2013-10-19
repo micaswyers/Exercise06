@@ -19,6 +19,20 @@ def print_by_frequency(dictionary):
             if value == max_frequency-(i-1):
                 print key , value
 
+def print_by_frequency2(dictionary):
+    for k in sorted(dictionary.iteritems(), cmp=comparator):
+        print k[0], k[1]
+
+def comparator(x,y):
+    #x is (key, value)
+    #y is (key, value)
+    if x[1] > y[1]:
+        return 1
+    elif x[1] < y[1]:
+        return -1
+    else:
+        return cmp(x[0], y[0])
+
 def main():
     script, input_text = sys.argv
 
@@ -33,7 +47,7 @@ def main():
     for token in token_list:
         wordcount[token] = wordcount.get(token, 0) + 1
 
-    print_by_frequency(wordcount)
+    print_by_frequency2(wordcount)
 
 
     
