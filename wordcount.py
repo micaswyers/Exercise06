@@ -6,12 +6,12 @@ def normalize(text):
     
     clean_list=[]
     for word in word_list:
-        word = word.strip("?.,_;\":!'-")
+        word = word.strip("?.,_;\":!'-") #removes punctuation
         clean_list.append(word)
 
     return clean_list
 
-def print_by_frequency(dictionary):
+def print_by_frequency(dictionary): #prints by frequency (high-low) (slow)
     max_frequency = max(dictionary.values())
     
     for i in range(1, max_frequency+1):
@@ -19,7 +19,7 @@ def print_by_frequency(dictionary):
             if value == max_frequency-(i-1):
                 print key , value
 
-def print_by_frequency2(dictionary):
+def print_by_frequency2(dictionary): #prints by frequency, alphabetically
     for k in sorted(dictionary.iteritems(), cmp=comparator):
         print k[0], k[1]
 
@@ -47,11 +47,13 @@ def main():
     for token in token_list:
         wordcount[token] = wordcount.get(token, 0) + 1
 
+    # prints out a list of every word, with its frequency: 
+    # for word in wordcount: 
+    #     print word, wordcount[word] 
+
     print_by_frequency2(wordcount)
 
 
     
-    # for word in wordcount:
-    #     print word, wordcount[word]
 main()
 
